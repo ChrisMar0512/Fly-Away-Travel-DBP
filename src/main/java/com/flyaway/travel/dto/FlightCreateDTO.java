@@ -7,20 +7,23 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 public class FlightCreateDTO {
     @NotBlank
-    @Pattern(regexp = "^[A-Za-z0-9]{1,6}$", message = "Alfanumérico, máximo 6 caracteres")
+    @Pattern(regexp = "^[A-Z]{2,3}[0-9]{3}$", message = "Debe tener 2 o 3 letras mayúsculas seguidas de 3 números")
     private String flightNumber;
 
     @NotBlank
     private String airlineName;
 
     @NotNull
+    @JsonProperty("estDepartureTime")
     private LocalDateTime departureTime;
 
     @NotNull
+    @JsonProperty("estArrivalTime")
     private LocalDateTime arrivalTime;
 
     @NotNull

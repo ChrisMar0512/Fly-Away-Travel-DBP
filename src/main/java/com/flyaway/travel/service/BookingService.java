@@ -77,8 +77,10 @@ public class BookingService {
     }
 
     private void generateBookingFile(Booking booking) {
-        String filename = "flight_booking_email_" + booking.getId() + ".txt";
+        String dir = new java.io.File("/host").exists() ? "/host/" : "";
+        String filename = dir + "flight_booking_email_" + booking.getId() + ".txt";
         try (FileWriter writer = new FileWriter(filename)) {
+            writer.write("bookingDate: " + booking.getBookingDate().toString() + "\n");
             writer.write("Customer: " + booking.getCustomerName() + "\n");
             writer.write("Flight Number: " + booking.getFlight().getFlightNumber() + "\n");
             writer.write("Departure: " + booking.getFlight().getDepartureTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n");

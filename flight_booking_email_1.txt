@@ -1,0 +1,4 @@
+Customer: John Doe
+Flight Number: AA448
+Departure: 2026-05-11T12:00:00
+Arrival: 2026-05-11T19:00:00

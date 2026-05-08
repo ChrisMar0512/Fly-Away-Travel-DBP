@@ -26,6 +26,15 @@ public class FlightController {
         return new ResponseEntity<>(flight, HttpStatus.CREATED);
     }
 
+    @PostMapping("/create-many")
+    public ResponseEntity<List<Flight>> createManyFlights(@Valid @RequestBody com.flyaway.travel.dto.FlightCreateManyDTO dto) {
+        List<Flight> flights = new java.util.ArrayList<>();
+        for (FlightCreateDTO input : dto.getInputs()) {
+            flights.add(flightService.createFlight(input));
+        }
+        return new ResponseEntity<>(flights, HttpStatus.CREATED);
+    }
+
     @GetMapping("/search")
     public ResponseEntity<List<Flight>> searchFlights(
             @RequestParam(required = false) String flightNumber,
