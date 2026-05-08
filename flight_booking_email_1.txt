@@ -1,4 +1,6 @@
-Customer: John Doe
-Flight Number: AA448
-Departure: 2026-05-11T12:00:00
-Arrival: 2026-05-11T19:00:00
+bookingDate: 2026-05-08T14:46:45.742485
+customerFirstName: John
+customerLastName: Doe
+flightNumber: AA448
+estDepartureTime: 2026-05-11T12:00:00
+estArrivalTime: 2026-05-11T19:00:00

@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -62,7 +63,7 @@ public class BookingService {
         booking.setFlight(flight);
         booking.setCustomer(user);
         booking.setCustomerName(user.getFirstName() + " " + user.getLastName());
-        booking.setBookingDate(LocalDateTime.now());
+        booking.setBookingDate(LocalDateTime.now().truncatedTo(ChronoUnit.MICROS));
 
         Booking savedBooking = bookingRepository.save(booking);
 
@@ -81,10 +82,11 @@ public class BookingService {
         String filename = dir + "flight_booking_email_" + booking.getId() + ".txt";
         try (FileWriter writer = new FileWriter(filename)) {
             writer.write("bookingDate: " + booking.getBookingDate().toString() + "\n");
-            writer.write("Customer: " + booking.getCustomerName() + "\n");
-            writer.write("Flight Number: " + booking.getFlight().getFlightNumber() + "\n");
-            writer.write("Departure: " + booking.getFlight().getDepartureTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n");
-            writer.write("Arrival: " + booking.getFlight().getArrivalTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n");
+            writer.write("customerFirstName: " + booking.getCustomer().getFirstName() + "\n");
+            writer.write("customerLastName: " + booking.getCustomer().getLastName() + "\n");
+            writer.write("flightNumber: " + booking.getFlight().getFlightNumber() + "\n");
+            writer.write("estDepartureTime: " + booking.getFlight().getDepartureTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n");
+            writer.write("estArrivalTime: " + booking.getFlight().getArrivalTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
